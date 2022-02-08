@@ -26,7 +26,7 @@ const SearchBox = (props) => {
       console.log('args', a, fn);
       clearTimeout(timer);
       timer = setTimeout(() => {
-        fn(a).then((res) => {
+        fn(...a).then((res) => {
           setSearchResult(res);
         });
       }, delay);
@@ -35,7 +35,8 @@ const SearchBox = (props) => {
   const betterFn = useCallback(debounce(fetchData, 500), []);
   const handleElementSelect = (el) => {
     console.log(el);
-    setSearchKey(el.item);
+    setSearchKey(el);
+    setSearchResult([]);
     setDisplaySearch(false);
   };
 
@@ -73,13 +74,16 @@ const SearchBox = (props) => {
           }`}
         >
           {searchResult.map((el) => (
-            <div key={el} onClick={() => handleElementSelect(el)}>
+            <div
+              key={el}
+              className="autocomplete-item"
+              onClick={() => handleElementSelect(el)}
+            >
               {el}
             </div>
           ))}
         </div>
       </div>
-      {JSON.stringify(searchResult)}
     </>
   );
 };

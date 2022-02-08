@@ -231,13 +231,15 @@ var countries = [
   'Zimbabwe',
 ];
 const fetchData = (key) => {
+  console.log('key', key);
   return new Promise((resolve, reject) => {
     let result = [];
     for (let i of countries) {
-      if (i.toLowerCase().includes(key)) {
+      if (i.toLowerCase().includes(key.toLowerCase())) {
         result.push(i);
       }
     }
+    console.log('result', result);
     if (result.length === 0) {
       result.push('No data Found');
     }
