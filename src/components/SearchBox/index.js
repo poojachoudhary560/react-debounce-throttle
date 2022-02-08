@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import fetchData from '../../api/service';
 
 import './index.css';
@@ -8,14 +8,28 @@ const SearchBox = (props) => {
   const [displaySearch, setDisplaySearch] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const myRef = useRef();
+
   useEffect(() => {
     if (searchKey) {
+      /*
       fetchData(searchKey).then((res) => {
         setSearchResult(res);
-      });
+      }); */
+      betterFn(searchKey, 500);
     }
   }, [searchKey]);
 
+  const debounce = useCallback(function (fn, delay) {
+    let timer;
+    return function (...a) {
+      console.log('args', a);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        return fn();
+      }, delay);
+    };
+  }, []);
+  const betterFn = debounce(fetchData, 500);
   const handleElementSelect = (el) => {
     console.log(el);
     setSearchKey(el.item);
