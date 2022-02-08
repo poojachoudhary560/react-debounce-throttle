@@ -232,7 +232,13 @@ var countries = [
 ];
 const fetchData = (key) => {
   return new Promise((resolve, reject) => {
-    resolve(data);
+    let result = [];
+    for (let i of countries) {
+      if (i.toLowerCase().includes(key)) {
+        result.push(i);
+      }
+    }
+    resolve(result);
   });
 };
 export default fetchData;

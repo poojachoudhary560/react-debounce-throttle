@@ -70,7 +70,7 @@ const SearchBox = (props) => {
           }`}
         >
           {searchResult.map((el) => (
-            <div onClick={() => handleElementSelect(el)}>{el.item}</div>
+            <div onClick={() => handleElementSelect(el)}>{el}</div>
           ))}
         </div>
       </div>
