@@ -62,7 +62,10 @@ const SearchBox = (props) => {
           onClick={() => setDisplaySearch(true)}
           onBlur={handleBlur}
           value={searchKey}
-          onChange={(e) => setSearchKey(e.target.value)}
+          onChange={(e) => {
+            e.preventDefault();
+            setSearchKey(e.target.value);
+          }}
         />
         <div
           className={`autocomplete-items ${
@@ -70,7 +73,9 @@ const SearchBox = (props) => {
           }`}
         >
           {searchResult.map((el) => (
-            <div onClick={() => handleElementSelect(el)}>{el}</div>
+            <div key={el} onClick={() => handleElementSelect(el)}>
+              {el}
+            </div>
           ))}
         </div>
       </div>
