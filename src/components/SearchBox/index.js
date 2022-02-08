@@ -15,21 +15,24 @@ const SearchBox = (props) => {
       fetchData(searchKey).then((res) => {
         setSearchResult(res);
       }); */
-      betterFn(searchKey, 500);
+      betterFn(searchKey);
+      //console.log(res1);
     }
   }, [searchKey]);
 
   const debounce = useCallback(function (fn, delay) {
     let timer;
     return function (...a) {
-      console.log('args', a);
+      console.log('args', a, fn);
       clearTimeout(timer);
       timer = setTimeout(() => {
-        return fn();
+        fn(a).then((res) => {
+          setSearchResult(res);
+        });
       }, delay);
     };
   }, []);
-  const betterFn = debounce(fetchData, 500);
+  const betterFn = useCallback(debounce(fetchData, 500), []);
   const handleElementSelect = (el) => {
     console.log(el);
     setSearchKey(el.item);
