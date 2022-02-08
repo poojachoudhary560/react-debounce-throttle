@@ -238,6 +238,9 @@ const fetchData = (key) => {
         result.push(i);
       }
     }
+    if (result.length === 0) {
+      result.push('No data Found');
+    }
     resolve(result);
   });
 };
